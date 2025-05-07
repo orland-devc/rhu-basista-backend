@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AppointmentController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PatientAdmissionController;
 use App\Http\Controllers\Auth\VerifyEmailController;
@@ -42,3 +43,11 @@ Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
 });
 
 Route::apiResource('patient-admissions', PatientAdmissionController::class);
+
+Route::prefix('appointments')->group(function () {
+    Route::get('/', [AppointmentController::class, 'index']);
+    Route::get('/{id}', [AppointmentController::class, 'show']);
+    Route::post('/', [AppointmentController::class, 'store']);
+    Route::put('/{id}', [AppointmentController::class, 'update']);
+    Route::delete('/{id}', [AppointmentController::class, 'destroy']);
+});

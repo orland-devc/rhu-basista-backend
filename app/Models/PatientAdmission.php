@@ -126,4 +126,14 @@ class PatientAdmission extends Model
         'admissionDate' => 'date',
         'dischargeDate' => 'date',
     ];
+
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
+    }
+
+    public function fullName()
+    {
+        return $this->firstName . ' ' . $this->middleName . ' ' . $this->lastName;
+    }
 }

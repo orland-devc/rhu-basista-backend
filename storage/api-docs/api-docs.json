@@ -6,6 +6,225 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/appointments": {
+            "get": {
+                "tags": [
+                    "Appointments"
+                ],
+                "summary": "Get all appointments",
+                "operationId": "812c4f15927f3d0e3e959538a6f1104b",
+                "responses": {
+                    "200": {
+                        "description": "List of appointments"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Appointments"
+                ],
+                "summary": "Create a new appointment",
+                "operationId": "2b481df28ec53d2afb2ec7c9a3a77846",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "patient_id",
+                                    "appointment_type",
+                                    "scheduled_at"
+                                ],
+                                "properties": {
+                                    "patient_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "patient_name": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "johndoe@hello.com"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "555-123-4567"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "example": "123 Main St, Cityville"
+                                    },
+                                    "appointment_type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "prenatal",
+                                            "delivery",
+                                            "postnatal"
+                                        ],
+                                        "example": "prenatal"
+                                    },
+                                    "scheduled_at": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2025-05-15T10:00:00"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "enum": [
+                                            "pending",
+                                            "confirmed",
+                                            "cancelled",
+                                            "completed"
+                                        ],
+                                        "example": "pending"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Appointment created successfully"
+                    }
+                }
+            }
+        },
+        "/api/appointments/{id}": {
+            "get": {
+                "tags": [
+                    "Appointments"
+                ],
+                "summary": "Get a specific appointment",
+                "operationId": "cca217dc71eae262de1fe09f314a4948",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Appointment details"
+                    },
+                    "404": {
+                        "description": "Appointment not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Appointments"
+                ],
+                "summary": "Update an existing appointment",
+                "operationId": "56cd9e193d590ed31b28bf8fe7162e70",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "patient_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "patient_name": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "johndoe@hello.com"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "555-123-4567"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "example": "123 Main St, Cityville"
+                                    },
+                                    "appointment_type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "prenatal",
+                                            "delivery",
+                                            "postnatal"
+                                        ]
+                                    },
+                                    "scheduled_at": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "enum": [
+                                            "pending",
+                                            "confirmed",
+                                            "cancelled",
+                                            "completed"
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Appointment updated successfully"
+                    },
+                    "404": {
+                        "description": "Appointment not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Appointments"
+                ],
+                "summary": "Delete an appointment",
+                "operationId": "47535f80ea6b8f4309694ff2123524d3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Appointment deleted successfully"
+                    },
+                    "404": {
+                        "description": "Appointment not found"
+                    }
+                }
+            }
+        },
         "/api/register": {
             "post": {
                 "tags": [
@@ -285,6 +504,72 @@
     },
     "components": {
         "schemas": {
+            "Apppointment": {
+                "title": "Appointment",
+                "description": "Appointment model",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "patient_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "patient_name": {
+                        "type": "string",
+                        "example": "John Doe"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "johndoe@hello.com"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": "555-123-4567"
+                    },
+                    "address": {
+                        "type": "string",
+                        "example": "123 Main St, Cityville"
+                    },
+                    "appointment_type": {
+                        "type": "string",
+                        "enum": [
+                            "prenatal",
+                            "delivery",
+                            "postnatal"
+                        ],
+                        "example": "prenatal"
+                    },
+                    "scheduled_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-04-10T14:30:00Z"
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "pending",
+                            "confirmed",
+                            "cancelled"
+                        ],
+                        "example": "pending"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
             "PatientAdmission": {
                 "title": "Patient Admission",
                 "description": "Patient Admission model",
@@ -553,6 +838,10 @@
         }
     },
     "tags": [
+        {
+            "name": "Appointments",
+            "description": "API Endpoints for managing appointments"
+        },
         {
             "name": "Auth",
             "description": "Auth"
