@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\PatientAdmissionController;
+use App\Http\Controllers\Auth\VerifyEmailController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\AuthController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -13,8 +16,29 @@ Route::middleware('auth:sanctum')->group(function () {
     // Protected routes go here...
 });
 
+// Route::get('/verify-email/{id}/{hash}', function (EmailVerificationRequest $request) {
+//     $request->fulfill();
 
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
+//     return response()->json(['message' => 'Email verified!']);
+// })->middleware(['auth:sanctum', 'signed'])->name('verification.verify');
+
+Route::get('/verify-email/{id}/{hash}', VerifyEmailController::class)->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return response()->json(['message' => 'Verification link sent!']);
+})->middleware(['auth:sanctum', 'throttle:6,1']);
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
+    return response()->json([
+        'user' => $request->user(),
+        'email_verified' => $request->user()->hasVerifiedEmail(),
+    ]);
+});
+
+Route::apiResource('patient-admissions', PatientAdmissionController::class);

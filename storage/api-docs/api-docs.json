@@ -1,0 +1,565 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Medical Admission API",
+        "description": "API for managing medical patient admissions",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register a new user",
+                "operationId": "8e4e3cb7b46126f4696379d3c7eeb4ad",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "john@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "secret123"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "secret123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User registered successfully"
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login an existing user",
+                "operationId": "222b2625838e3c57e017987f73598fda",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "john@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "secret123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User logged in successfully"
+                    },
+                    "422": {
+                        "description": "Validation failed"
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout the authenticated user",
+                "operationId": "ad65cbbd4e9f201619eae184a5961a98",
+                "responses": {
+                    "200": {
+                        "description": "Logged out successfully"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/patient-admissions": {
+            "get": {
+                "tags": [
+                    "Patient Admissions"
+                ],
+                "summary": "Get all patient admissions",
+                "operationId": "be3584114b69ebeeda29241083876f84",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/PatientAdmission"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Patient Admissions"
+                ],
+                "summary": "Create a new patient admission",
+                "operationId": "c42b263c72c49ac958eff649d9ad3949",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatientAdmission"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Patient admission created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PatientAdmission"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/api/patient-admissions/{id}": {
+            "get": {
+                "tags": [
+                    "Patient Admissions"
+                ],
+                "summary": "Get patient admission by ID",
+                "operationId": "0b725edf747f9cc438a965930d6eb323",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Patient admission ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PatientAdmission"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Patient admission not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Patient Admissions"
+                ],
+                "summary": "Update patient admission",
+                "operationId": "1c98344b869554d4f5dc3bdb30dd1600",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Patient admission ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatientAdmission"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Patient admission updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PatientAdmission"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Patient admission not found"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Patient Admissions"
+                ],
+                "summary": "Delete patient admission",
+                "operationId": "821853dc375362c6787b6dd15e862153",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Patient admission ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Patient admission deleted successfully"
+                    },
+                    "404": {
+                        "description": "Patient admission not found"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "PatientAdmission": {
+                "title": "Patient Admission",
+                "description": "Patient Admission model",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "example": "Smith"
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "example": "John"
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "example": "Robert",
+                        "nullable": true
+                    },
+                    "permanentAddress": {
+                        "type": "string",
+                        "example": "123 Main St, Cityville"
+                    },
+                    "telephoneNumber": {
+                        "type": "string",
+                        "example": "555-123-4567",
+                        "nullable": true
+                    },
+                    "sex": {
+                        "type": "string",
+                        "enum": [
+                            "male",
+                            "female"
+                        ],
+                        "example": "male"
+                    },
+                    "civilStatus": {
+                        "type": "string",
+                        "enum": [
+                            "single",
+                            "married",
+                            "widowed",
+                            "divorced"
+                        ],
+                        "example": "single"
+                    },
+                    "birthDate": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "1980-01-15"
+                    },
+                    "age": {
+                        "type": "string",
+                        "example": "43"
+                    },
+                    "birthPlace": {
+                        "type": "string",
+                        "example": "Springfield"
+                    },
+                    "nationality": {
+                        "type": "string",
+                        "example": "American"
+                    },
+                    "religion": {
+                        "type": "string",
+                        "example": "Christian"
+                    },
+                    "occupation": {
+                        "type": "string",
+                        "example": "Engineer"
+                    },
+                    "employer": {
+                        "type": "string",
+                        "example": "ABC Company",
+                        "nullable": true
+                    },
+                    "employerAddress": {
+                        "type": "string",
+                        "example": "456 Business Ave",
+                        "nullable": true
+                    },
+                    "employerTelNo": {
+                        "type": "string",
+                        "example": "555-987-6543",
+                        "nullable": true
+                    },
+                    "fatherName": {
+                        "type": "string",
+                        "example": "Michael Smith",
+                        "nullable": true
+                    },
+                    "fatherAddress": {
+                        "type": "string",
+                        "example": "789 Father St",
+                        "nullable": true
+                    },
+                    "fatherTelNo": {
+                        "type": "string",
+                        "example": "555-222-3333",
+                        "nullable": true
+                    },
+                    "motherName": {
+                        "type": "string",
+                        "example": "Susan Smith",
+                        "nullable": true
+                    },
+                    "motherAddress": {
+                        "type": "string",
+                        "example": "789 Mother St",
+                        "nullable": true
+                    },
+                    "motherTelNo": {
+                        "type": "string",
+                        "example": "555-444-5555",
+                        "nullable": true
+                    },
+                    "admissionDate": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-04-10"
+                    },
+                    "admissionTime": {
+                        "type": "string",
+                        "example": "14:30"
+                    },
+                    "dischargeDate": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-04-13",
+                        "nullable": true
+                    },
+                    "dischargeTime": {
+                        "type": "string",
+                        "example": "10:00",
+                        "nullable": true
+                    },
+                    "totalDays": {
+                        "type": "string",
+                        "example": "3",
+                        "nullable": true
+                    },
+                    "attendingPhysician": {
+                        "type": "string",
+                        "example": "Dr. Johnson"
+                    },
+                    "admissionType": {
+                        "type": "string",
+                        "enum": [
+                            "new",
+                            "old",
+                            "former"
+                        ],
+                        "example": "new"
+                    },
+                    "referredBy": {
+                        "type": "string",
+                        "example": "Dr. Williams",
+                        "nullable": true
+                    },
+                    "socialServiceClass": {
+                        "type": "string",
+                        "example": "A"
+                    },
+                    "hospitalizationPlan": {
+                        "type": "string",
+                        "example": "Corporate Healthcare",
+                        "nullable": true
+                    },
+                    "healthInsurance": {
+                        "type": "string",
+                        "example": "Blue Shield",
+                        "nullable": true
+                    },
+                    "medicareType": {
+                        "type": "string",
+                        "enum": [
+                            "gsis-member",
+                            "gsis-dependent",
+                            "sss-member",
+                            "sss-dependent",
+                            "owwa",
+                            "non-medicare",
+                            "indigent"
+                        ],
+                        "example": "sss-member",
+                        "nullable": true
+                    },
+                    "allergies": {
+                        "type": "string",
+                        "example": "Penicillin, Peanuts",
+                        "nullable": true
+                    },
+                    "admissionDiagnosis": {
+                        "type": "string",
+                        "example": "Acute appendicitis"
+                    },
+                    "principalDiagnosis": {
+                        "type": "string",
+                        "example": "Appendicitis with peritonitis"
+                    },
+                    "otherDiagnosis": {
+                        "type": "string",
+                        "example": "Mild dehydration",
+                        "nullable": true
+                    },
+                    "principalProcedure": {
+                        "type": "string",
+                        "example": "Laparoscopic appendectomy",
+                        "nullable": true
+                    },
+                    "otherProcedures": {
+                        "type": "string",
+                        "example": "IV fluid therapy",
+                        "nullable": true
+                    },
+                    "accidentDetails": {
+                        "type": "string",
+                        "example": "N/A",
+                        "nullable": true
+                    },
+                    "placeOfOccurrence": {
+                        "type": "string",
+                        "example": "N/A",
+                        "nullable": true
+                    },
+                    "disposition": {
+                        "type": "string",
+                        "enum": [
+                            "discharged",
+                            "transferred",
+                            "dama",
+                            "absconded",
+                            "recovered",
+                            "improved",
+                            "unimproved",
+                            "died"
+                        ],
+                        "example": "improved"
+                    },
+                    "autopsyStatus": {
+                        "type": "string",
+                        "enum": [
+                            "48-hours",
+                            "more-than-48",
+                            "autopsy",
+                            "no-autopsy"
+                        ],
+                        "example": "no-autopsy"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Patient Admissions",
+            "description": "Patient Admissions"
+        }
+    ]
+}
