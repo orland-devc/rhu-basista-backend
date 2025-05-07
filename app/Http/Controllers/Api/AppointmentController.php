@@ -6,8 +6,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
-use Illuminate\Http\Request;
 use App\Repositories\AppointmentRepository;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 /**
@@ -30,6 +30,7 @@ class AppointmentController extends Controller
      *     path="/api/appointments",
      *     tags={"Appointments"},
      *     summary="Get all appointments",
+     *
      *     @OA\Response(
      *         response=200,
      *         description="List of appointments"
@@ -42,7 +43,7 @@ class AppointmentController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'data' => $appointments
+            'data' => $appointments,
         ], 200);
     }
 
@@ -51,12 +52,15 @@ class AppointmentController extends Controller
      *     path="/api/appointments/{id}",
      *     tags={"Appointments"},
      *     summary="Get a specific appointment",
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
+     *
      *         @OA\Schema(type="integer")
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Appointment details"
@@ -71,16 +75,16 @@ class AppointmentController extends Controller
     {
         $appointment = Appointment::find($id);
 
-        if (!$appointment) {
+        if (! $appointment) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Appointment not found'
+                'message' => 'Appointment not found',
             ], 404);
         }
 
         return response()->json([
             'status' => 'success',
-            'data' => $appointment
+            'data' => $appointment,
         ], 200);
     }
 
@@ -89,10 +93,13 @@ class AppointmentController extends Controller
      *     path="/api/appointments",
      *     tags={"Appointments"},
      *     summary="Create a new appointment",
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\JsonContent(
      *             required={"patient_id", "appointment_type", "scheduled_at"},
+     *
      *             @OA\Property(property="patient_id", type="integer", example=1),
      *             @OA\Property(property="patient_name", type="string", example="John Doe"),
      *             @OA\Property(property="email", type="string", format="email", example="johndoe@hello.com"),
@@ -103,6 +110,7 @@ class AppointmentController extends Controller
      *             @OA\Property(property="status", type="string", enum={"pending", "confirmed", "cancelled", "completed"}, example="pending")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=201,
      *         description="Appointment created successfully"
@@ -126,7 +134,7 @@ class AppointmentController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Validation failed',
-                'errors' => $validator->errors()
+                'errors' => $validator->errors(),
             ], 422);
         }
 
@@ -135,7 +143,7 @@ class AppointmentController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Appointment created successfully',
-            'data' => $appointment
+            'data' => $appointment,
         ], 201);
     }
 
@@ -144,15 +152,20 @@ class AppointmentController extends Controller
      *     path="/api/appointments/{id}",
      *     tags={"Appointments"},
      *     summary="Update an existing appointment",
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
+     *
      *         @OA\Schema(type="integer")
      *     ),
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="patient_id", type="integer", example=1),
      *             @OA\Property(property="patient_name", type="string", example="John Doe"),
      *             @OA\Property(property="email", type="string", format="email", example="johndoe@hello.com"),
@@ -163,6 +176,7 @@ class AppointmentController extends Controller
      *             @OA\Property(property="status", type="string", enum={"pending", "confirmed", "cancelled", "completed"})
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Appointment updated successfully"
@@ -177,10 +191,10 @@ class AppointmentController extends Controller
     {
         $appointment = Appointment::find($id);
 
-        if (!$appointment) {
+        if (! $appointment) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Appointment not found'
+                'message' => 'Appointment not found',
             ], 404);
         }
         $validator = Validator::make($request->all(), [
@@ -197,7 +211,7 @@ class AppointmentController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'status' => 'error',
-                'message' => $validator->errors()
+                'message' => $validator->errors(),
             ], 422);
         }
         $appointment->update($request->all());
@@ -205,20 +219,24 @@ class AppointmentController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Appointment updated successfully',
-            'data' => $appointment
-        ]);}
+            'data' => $appointment,
+        ]);
+    }
 
     /**
      * @OA\Delete(
      *     path="/api/appointments/{id}",
      *     tags={"Appointments"},
      *     summary="Delete an appointment",
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
+     *
      *         @OA\Schema(type="integer")
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Appointment deleted successfully"
@@ -233,10 +251,10 @@ class AppointmentController extends Controller
     {
         $appointment = Appointment::find($id);
 
-        if (!$appointment) {
+        if (! $appointment) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Appointment not found'
+                'message' => 'Appointment not found',
             ], 404);
         }
 
@@ -244,7 +262,7 @@ class AppointmentController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Appointment deleted successfully'
+            'message' => 'Appointment deleted successfully',
         ]);
     }
 }

@@ -27,6 +27,7 @@ class AppointmentRepository
     {
         $appointment = Appointment::findOrFail($id);
         $appointment->update($data);
+
         return $appointment;
     }
 

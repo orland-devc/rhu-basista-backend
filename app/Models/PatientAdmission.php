@@ -134,6 +134,6 @@ class PatientAdmission extends Model
 
     public function fullName()
     {
-        return $this->firstName . ' ' . $this->middleName . ' ' . $this->lastName;
+        return $this->firstName.' '.$this->middleName.' '.$this->lastName;
     }
 }
