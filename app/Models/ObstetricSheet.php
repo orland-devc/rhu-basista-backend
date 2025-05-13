@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @OA\Schema(
@@ -17,7 +18,6 @@ use Illuminate\Database\Eloquent\Model;
  *   @OA\Property(property="final_diagnosis", type="string", description="Final diagnosis"),
  *   @OA\Property(property="pertinent_medical_history", type="string", description="Pertinent medical history"),
  *   @OA\Property(property="educational_attainment", type="string", description="Educational attainment of the patient"),
- *   @OA\Property(property="previous_pregnancies", type="array", @OA\Items(type="object"), description="History of previous pregnancies"),
  *   @OA\Property(property="lmp", type="string", format="date", description="Last menstrual period date"),
  *   @OA\Property(property="edc", type="string", format="date", description="Estimated date of confinement"),
  *   @OA\Property(property="aog", type="integer", description="Age of gestation in weeks"),
@@ -65,7 +65,6 @@ class ObstetricSheet extends Model
         'pertinent_medical_history',
 
         'educational_attainment',
-        'previous_pregnancies',
         'lmp',
         'edc',
         'aog',
@@ -119,5 +118,10 @@ class ObstetricSheet extends Model
     public function patientAdmission()
     {
         return $this->belongsTo(PatientAdmission::class);
+    }
+
+    public function pregnancyRecords()
+    {
+        return $this->hasMany(PregnancyRecord::class);
     }
 }

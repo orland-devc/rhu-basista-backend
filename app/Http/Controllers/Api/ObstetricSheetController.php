@@ -174,14 +174,14 @@ class ObstetricSheetController extends Controller
 
         $validator = Validator::make($request->all(), [
             // ... repeat rules as in store
-            'patient_admission_id' => 'required|string',
+            'patient_admission_id' => 'sometimes|string',
             'reason_for_admission' => 'nullable|string',
             'admitting_impression' => 'nullable|string',
             'final_diagnosis' => 'nullable|string',
             'pertinent_medical_history' => 'nullable|string',
             'educational_attainment' => ['nullable', Rule::in(['Elementary', 'High School', 'College Graduate'])],
             'previous_pregnancies' => 'nullable|array|max:6',
-            'previous_pregnancies.*.label' => 'required|string|in:G1,G2,G3,G4,G5,G6',
+            'previous_pregnancies.*.label' => 'sometimes|string|in:G1,G2,G3,G4,G5,G6',
             'previous_pregnancies.*.year' => 'nullable|integer',
             'previous_pregnancies.*.aog' => 'nullable|string',
             'previous_pregnancies.*.manner' => 'nullable|string',

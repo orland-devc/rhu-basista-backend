@@ -20,9 +20,6 @@ class CreateObstetricSheetsTable extends Migration
             $table->text('pertinent_medical_history')->nullable();
             $table->string('educational_attainment')->nullable();
 
-            // Pregnancy History (can be moved to a separate table if many rows)
-            $table->json('previous_pregnancies')->nullable(); // store G1-G6 entries as JSON
-
             // Present Pregnancy
             $table->date('lmp')->nullable(); // Last Menstrual Period
             $table->date('edc')->nullable(); // Estimated Date of Confinement

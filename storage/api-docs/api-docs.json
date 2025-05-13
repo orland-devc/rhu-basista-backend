@@ -627,6 +627,132 @@
                 }
             }
         },
+        "/api/pregnancy-records": {
+            "get": {
+                "tags": [
+                    "Pregnancy Records"
+                ],
+                "summary": "List all pregnancy records",
+                "operationId": "0058f6fec73f8d0d5dc8394f170595d7",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Pregnancy Records"
+                ],
+                "summary": "Create a new pregnancy record",
+                "operationId": "535d6f3503f6869333212386dc4dc1c7",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PregnancyRecord"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "422": {
+                        "description": "Validation failed"
+                    }
+                }
+            }
+        },
+        "/api/pregnancy-records/{id}": {
+            "get": {
+                "tags": [
+                    "Pregnancy Records"
+                ],
+                "summary": "Get a single pregnancy record",
+                "operationId": "6d7b1da5885979ad68b13fd2ff55bbd9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Pregnancy Records"
+                ],
+                "summary": "Update a pregnancy record",
+                "operationId": "b461039b70594d6f646ea922166799c1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PregnancyRecord"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated"
+                    },
+                    "422": {
+                        "description": "Validation failed"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Pregnancy Records"
+                ],
+                "summary": "Delete a pregnancy record",
+                "operationId": "3cb11273d7d58efef58a7c898ad93f18",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Deleted"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
         "/api/scoring-charts": {
             "get": {
                 "tags": [
@@ -892,13 +1018,6 @@
                     "educational_attainment": {
                         "description": "Educational attainment of the patient",
                         "type": "string"
-                    },
-                    "previous_pregnancies": {
-                        "description": "History of previous pregnancies",
-                        "type": "array",
-                        "items": {
-                            "type": "object"
-                        }
                     },
                     "lmp": {
                         "description": "Last menstrual period date",
@@ -1319,6 +1438,56 @@
                 },
                 "type": "object"
             },
+            "PregnancyRecord": {
+                "title": "Pregnancy Record",
+                "required": [
+                    "obstetric_sheet_id",
+                    "pregnancy_order"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "obstetric_sheet_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "pregnancy_order": {
+                        "type": "string",
+                        "example": "G1"
+                    },
+                    "aog": {
+                        "type": "string",
+                        "example": "39 weeks"
+                    },
+                    "manner_of_delivery": {
+                        "type": "string",
+                        "example": "Normal Spontaneous Delivery"
+                    },
+                    "place_of_delivery": {
+                        "type": "string",
+                        "example": "Rural Health Unit"
+                    },
+                    "gender": {
+                        "type": "string",
+                        "example": "Female"
+                    },
+                    "weight": {
+                        "type": "string",
+                        "example": "3.2 kg"
+                    },
+                    "complications": {
+                        "type": "string",
+                        "example": "None"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "Alive"
+                    }
+                },
+                "type": "object"
+            },
             "ScoringChart": {
                 "required": [
                     "patient_admission_id",
@@ -1421,6 +1590,10 @@
         {
             "name": "Appointments",
             "description": "API Endpoints for managing appointments"
+        },
+        {
+            "name": "Pregnancy Records",
+            "description": "API for managing pregnancy records"
         },
         {
             "name": "Auth",
