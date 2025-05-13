@@ -36,7 +36,7 @@ class PatientAdmissionController extends Controller
      */
     public function index()
     {
-        $admissions = PatientAdmission::all();
+        $admissions = PatientAdmission::where('softDelete', 0)->get();
 
         return response()->json([
             'status' => 'success',
@@ -72,6 +72,8 @@ class PatientAdmissionController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'type' => 'required|string',
+            'medRecNo' => 'nullable|string|unique:patient_admissions,medRecNo',
             'lastName' => 'required|string|max:255',
             'firstName' => 'required|string|max:255',
             'middleName' => 'nullable|string|max:255',
@@ -110,7 +112,7 @@ class PatientAdmissionController extends Controller
             'admissionDiagnosis' => 'required|string',
             'principalDiagnosis' => 'required|string',
             'otherDiagnosis' => 'nullable|string',
-            'principalProcedure' => 'nullable|string',
+            'principalProcedures' => 'nullable|string',
             'otherProcedures' => 'nullable|string',
             'accidentDetails' => 'nullable|string',
             'placeOfOccurrence' => 'nullable|string',
@@ -230,6 +232,8 @@ class PatientAdmissionController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
+            'type' => 'sometimes|required|string',
+            'medRecNo' => 'sometimes|required|string|unique:patient_admissions,medRecNo,',
             'lastName' => 'sometimes|required|string|max:255',
             'firstName' => 'sometimes|required|string|max:255',
             'middleName' => 'nullable|string|max:255',
@@ -268,7 +272,7 @@ class PatientAdmissionController extends Controller
             'admissionDiagnosis' => 'sometimes|required|string',
             'principalDiagnosis' => 'sometimes|required|string',
             'otherDiagnosis' => 'nullable|string',
-            'principalProcedure' => 'nullable|string',
+            'principalProcedures' => 'nullable|string',
             'otherProcedures' => 'nullable|string',
             'accidentDetails' => 'nullable|string',
             'placeOfOccurrence' => 'nullable|string',
@@ -329,7 +333,9 @@ class PatientAdmissionController extends Controller
             ], 404);
         }
 
-        $admission->delete();
+        // $admission->delete();
+        $admission->softDelete = true;
+        $admission->save();
 
         return response()->json([
             'status' => 'success',

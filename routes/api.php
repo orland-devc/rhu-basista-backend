@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Api\AppointmentController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ObstetricSheetController;
 use App\Http\Controllers\Api\PatientAdmissionController;
+use App\Http\Controllers\Api\ScoringChartController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -51,3 +53,7 @@ Route::prefix('appointments')->group(function () {
     Route::put('/{id}', [AppointmentController::class, 'update']);
     Route::delete('/{id}', [AppointmentController::class, 'destroy']);
 });
+
+Route::apiResource('scoring-charts', ScoringChartController::class);
+
+Route::apiResource('obstetric-sheets', ObstetricSheetController::class);

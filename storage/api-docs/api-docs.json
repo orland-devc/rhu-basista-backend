@@ -338,6 +338,132 @@
                 ]
             }
         },
+        "/api/obstetric-sheets": {
+            "get": {
+                "tags": [
+                    "Obstetric Sheets"
+                ],
+                "summary": "Get all obstetric sheets",
+                "operationId": "81ce437a5ea6eb40406edf4f147d7186",
+                "responses": {
+                    "200": {
+                        "description": "Successful retrieval"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Obstetric Sheets"
+                ],
+                "summary": "Create a new obstetric sheet",
+                "operationId": "64f45ac73f18c25133b75dfa6b347fda",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ObstetricSheet"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/api/obstetric-sheets/{id}": {
+            "get": {
+                "tags": [
+                    "Obstetric Sheets"
+                ],
+                "summary": "Retrieve a single obstetric sheet",
+                "operationId": "3e0affd96b2586629adc09585ae2aebf",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Obstetric Sheets"
+                ],
+                "summary": "Update a specific obstetric sheet",
+                "operationId": "1e01fbc132261ab54a49b1dbbcf1d63d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ObstetricSheet"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated"
+                    },
+                    "400": {
+                        "description": "Validation error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Obstetric Sheets"
+                ],
+                "summary": "Delete a specific obstetric sheet",
+                "operationId": "92e7cf221361da6b45d4f02b8fa0f147",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Deleted"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
         "/api/patient-admissions": {
             "get": {
                 "tags": [
@@ -500,6 +626,168 @@
                     }
                 }
             }
+        },
+        "/api/scoring-charts": {
+            "get": {
+                "tags": [
+                    "ScoringChart"
+                ],
+                "summary": "Get all scoring charts",
+                "operationId": "9b30d802be26b036e0b061f320efedca",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ScoringChart"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "ScoringChart"
+                ],
+                "summary": "Create a new scoring chart",
+                "operationId": "1f0a7926ef01419c8cd011c50c06fceb",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ScoringChart"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Scoring Chart created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScoringChart"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/api/scoring-charts/{id}": {
+            "get": {
+                "tags": [
+                    "ScoringChart"
+                ],
+                "summary": "Get scoring chart by ID",
+                "operationId": "e9f1c987329747cdab02d19f3dbb509c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Scoring chart ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScoringChart"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Chart not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "ScoringChart"
+                ],
+                "summary": "Update APGAR scoring chart",
+                "operationId": "39878bb1798e208912205f513cac9e46",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Scoring chart ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ScoringChart"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScoringChart"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "ScoringChart"
+                ],
+                "summary": "Delete scoring chart",
+                "operationId": "2f78d9ad4754197ec8d424cc19f4b175",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deleted successfully"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -570,6 +858,194 @@
                 },
                 "type": "object"
             },
+            "ObstetricSheet": {
+                "required": [
+                    "patient_admission_id"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "Obstetric sheet ID",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "patient_admission_id": {
+                        "description": "Associated patient admission ID",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "reason_for_admission": {
+                        "description": "Reason for admission",
+                        "type": "string"
+                    },
+                    "admitting_impression": {
+                        "description": "Admitting impression",
+                        "type": "string"
+                    },
+                    "final_diagnosis": {
+                        "description": "Final diagnosis",
+                        "type": "string"
+                    },
+                    "pertinent_medical_history": {
+                        "description": "Pertinent medical history",
+                        "type": "string"
+                    },
+                    "educational_attainment": {
+                        "description": "Educational attainment of the patient",
+                        "type": "string"
+                    },
+                    "previous_pregnancies": {
+                        "description": "History of previous pregnancies",
+                        "type": "array",
+                        "items": {
+                            "type": "object"
+                        }
+                    },
+                    "lmp": {
+                        "description": "Last menstrual period date",
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "edc": {
+                        "description": "Estimated date of confinement",
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "aog": {
+                        "description": "Age of gestation in weeks",
+                        "type": "integer"
+                    },
+                    "weeks_pmp": {
+                        "description": "Weeks post menstrual period",
+                        "type": "integer"
+                    },
+                    "morning_sickness": {
+                        "description": "Presence of morning sickness",
+                        "type": "boolean"
+                    },
+                    "quickening": {
+                        "description": "Quickening observations",
+                        "type": "string"
+                    },
+                    "abnormal_signs": {
+                        "description": "Abnormal signs noted",
+                        "type": "string"
+                    },
+                    "primary_antenatal_condition": {
+                        "description": "Primary antenatal condition",
+                        "type": "string"
+                    },
+                    "antenatal_visits_first": {
+                        "description": "Date of first antenatal visit",
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "antenatal_visits_last": {
+                        "description": "Date of last antenatal visit",
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "contraceptive_methods": {
+                        "description": "Contraceptive methods used",
+                        "type": "string"
+                    },
+                    "additional_children_wanted": {
+                        "description": "Additional children wanted by the patient",
+                        "type": "string"
+                    },
+                    "history_of_present_illness": {
+                        "description": "History of present illness",
+                        "type": "string"
+                    },
+                    "general_condition": {
+                        "description": "General condition of the patient",
+                        "type": "string"
+                    },
+                    "bp": {
+                        "description": "Blood pressure",
+                        "type": "string"
+                    },
+                    "hr": {
+                        "description": "Heart rate",
+                        "type": "integer"
+                    },
+                    "rr": {
+                        "description": "Respiratory rate",
+                        "type": "integer"
+                    },
+                    "temp": {
+                        "description": "Body temperature",
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "weight": {
+                        "description": "Patient's weight",
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "height": {
+                        "description": "Patient's height",
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "fundic_height": {
+                        "description": "Fundic height measurement",
+                        "type": "string"
+                    },
+                    "presentation": {
+                        "description": "Fetal presentation",
+                        "type": "string"
+                    },
+                    "engaged": {
+                        "description": "Whether the fetal head is engaged",
+                        "type": "boolean"
+                    },
+                    "floating": {
+                        "description": "Whether the fetal head is floating",
+                        "type": "boolean"
+                    },
+                    "efw": {
+                        "description": "Estimated fetal weight",
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "fht": {
+                        "description": "Fetal heart tone/rate",
+                        "type": "integer"
+                    },
+                    "extremities": {
+                        "description": "Condition of extremities",
+                        "type": "string"
+                    },
+                    "edema": {
+                        "description": "Presence and degree of edema",
+                        "type": "string"
+                    },
+                    "albuminuria": {
+                        "description": "Presence of albumin in urine",
+                        "type": "boolean"
+                    },
+                    "glucosuria": {
+                        "description": "Presence of glucose in urine",
+                        "type": "boolean"
+                    },
+                    "hemoglobin": {
+                        "description": "Hemoglobin level",
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "created_at": {
+                        "description": "Creation timestamp",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "description": "Last update timestamp",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
             "PatientAdmission": {
                 "title": "Patient Admission",
                 "description": "Patient Admission model",
@@ -578,6 +1054,14 @@
                         "type": "integer",
                         "format": "int64",
                         "example": 1
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "Smith"
+                    },
+                    "medRecNo": {
+                        "type": "string",
+                        "example": "Smith"
                     },
                     "lastName": {
                         "type": "string",
@@ -778,7 +1262,7 @@
                         "example": "Mild dehydration",
                         "nullable": true
                     },
-                    "principalProcedure": {
+                    "principalProcedures": {
                         "type": "string",
                         "example": "Laparoscopic appendectomy",
                         "nullable": true
@@ -834,6 +1318,102 @@
                     }
                 },
                 "type": "object"
+            },
+            "ScoringChart": {
+                "required": [
+                    "patient_admission_id",
+                    "dateScored",
+                    "heartRate",
+                    "respiratory",
+                    "muscleTone",
+                    "reflexes",
+                    "color",
+                    "heartRate5",
+                    "respiratory5",
+                    "muscleTone5",
+                    "reflexes5",
+                    "color5",
+                    "heartRate10",
+                    "respiratory10",
+                    "muscleTone10",
+                    "reflexes10",
+                    "color10",
+                    "otherHeartRate",
+                    "otherRespiratory",
+                    "otherMuscleTone",
+                    "otherReflexes",
+                    "otherColor"
+                ],
+                "properties": {
+                    "patient_admission_id": {
+                        "type": "integer"
+                    },
+                    "dateScored": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "heartRate": {
+                        "type": "integer"
+                    },
+                    "respiratory": {
+                        "type": "integer"
+                    },
+                    "muscleTone": {
+                        "type": "integer"
+                    },
+                    "reflexes": {
+                        "type": "integer"
+                    },
+                    "color": {
+                        "type": "integer"
+                    },
+                    "heartRate5": {
+                        "type": "integer"
+                    },
+                    "respiratory5": {
+                        "type": "integer"
+                    },
+                    "muscleTone5": {
+                        "type": "integer"
+                    },
+                    "reflexes5": {
+                        "type": "integer"
+                    },
+                    "color5": {
+                        "type": "integer"
+                    },
+                    "heartRate10": {
+                        "type": "integer"
+                    },
+                    "respiratory10": {
+                        "type": "integer"
+                    },
+                    "muscleTone10": {
+                        "type": "integer"
+                    },
+                    "reflexes10": {
+                        "type": "integer"
+                    },
+                    "color10": {
+                        "type": "integer"
+                    },
+                    "otherHeartRate": {
+                        "type": "integer"
+                    },
+                    "otherRespiratory": {
+                        "type": "integer"
+                    },
+                    "otherMuscleTone": {
+                        "type": "integer"
+                    },
+                    "otherReflexes": {
+                        "type": "integer"
+                    },
+                    "otherColor": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
             }
         }
     },
@@ -847,8 +1427,16 @@
             "description": "Auth"
         },
         {
+            "name": "Obstetric Sheets",
+            "description": "Obstetric Sheets"
+        },
+        {
             "name": "Patient Admissions",
             "description": "Patient Admissions"
+        },
+        {
+            "name": "ScoringChart",
+            "description": "ScoringChart"
         }
     ]
 }

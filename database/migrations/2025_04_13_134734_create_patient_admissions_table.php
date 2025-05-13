@@ -17,6 +17,8 @@ class CreatePatientAdmissionsTable extends Migration
             $table->id();
 
             // Patient Information
+            $table->string('type')->required();
+            $table->string('medRecNo')->unique();
             $table->string('lastName');
             $table->string('firstName');
             $table->string('middleName')->nullable();
@@ -68,7 +70,7 @@ class CreatePatientAdmissionsTable extends Migration
             $table->text('admissionDiagnosis');
             $table->text('principalDiagnosis');
             $table->text('otherDiagnosis')->nullable();
-            $table->text('principalProcedure')->nullable();
+            $table->text('principalProcedures')->nullable();
             $table->text('otherProcedures')->nullable();
             $table->string('accidentDetails')->nullable();
             $table->string('placeOfOccurrence')->nullable();
@@ -81,6 +83,8 @@ class CreatePatientAdmissionsTable extends Migration
             $table->enum('autopsyStatus', [
                 '48-hours', 'more-than-48', 'autopsy', 'no-autopsy',
             ]);
+
+            $table->boolean('softDelete')->default(0);
 
             $table->timestamps();
         });
